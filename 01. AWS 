@@ -1,0 +1,96 @@
+AWS 네트워크 및 EKS 설계
+
+1. VPC 생성(Secondary CIDR 포함)
+2. Subnet 및 Internet GateWay 생성 
+3. RouTable 생성
+4. EKS Cluster 생성
+5. EKS Node Group 생성
+6. POD 배포
+
+1. Terraform 소개
+https://learn.hashicorp.com/tutorials/terraform/infrastructure-as-code
+
+
+설치 명령어(Mac OS)
+$ brew install hashicorp/tap/terraform 
+
+설치 명령어(Ubuntu)
+$ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add ‒ 
+$ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com 
+$(lsb_release -cs) main"
+$ sudo apt-get update && sudo apt-get install terraform
+
+설치 명령어(Windows)
+1. 다음 URL에서 파일 다운로드
+https://releases.hashicorp.com/terraform/1.1.5/terraform_1.1.5_windows_amd64.zip
+2.압축해제
+3. terraform 파일을 실행가능 위치에 두고 실행
+
+Terraform 기본 리소스 - Resource
+• 프로비저닝할 Resource의 오브젝트를 기술
+• 각 Resource는 오직 1개의 리소스 타입만 가짐
+• Resource내에 사용 가능한 변수를 설정
+• 예시 
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster
+
+Terraform 기본 리소스 - Data Source
+• Provider에서 제공하는 Resource 정보를 가져옴
+• Terraform에서 사용 할 수 있는 형태로 연결
+• Filter를 통해 정보를 가져올 수도 있음
+• 예시 
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster
+
+Terraform 기본 리소스 - Providers
+• 1000개 이상의 다양한 Provider를 제공
+• Provider를 선언해 해당 인프라에 프로비저닝 할 수 있도록 설정
+• 참고 
+https://registry.terraform.io/browse/providers
+
+Terraform 기본 리소스 - Variables
+• Terraform의 tf파일 내에서 사용가능한 변수를 지정
+• terraform 명령어가 실행되는 디렉토리 내에 있는 파일에서 사용가능
+• Resource, Data Source, Providers에서 모두 변수 지정해 사용가능
+• 참고 
+https://www.terraform.io/language/values/variables
+
+Terraform 기본 명령어 (프로비저닝)
+1. Terraform 초기화 (Init) 
+$ terraform init
+2. Terraform 프로비저닝 코드 검증 (Dry Run) 
+$ terraform plan
+3. Terraform 프로비저닝 수행 (Run) 
+$ terraform apply
+
+Terraform 기본 명령어 (프로비저닝 적용 삭제)
+1. Terraform 프로비저닝 적용 삭제 코드 검증 (Dry Run) 
+$ terraform plan --destroy
+2. Terraform 프로비저닝 적용 삭제 수행 (Run) 
+$ terraform destroy
+
+AWS EKS 기본  Plugin 구성 방법
+
+네트워크 구성
+EKS Node 및 POD IP 대역 분리(Secondary CIDR)
+1. AWS Management Console에서 추가 -AWS경로:VPC>작업>CIDR편집>새IPv4CIDR추가 
+- 설정 내역 : 100.64.0.0/16
+1. Terraform에 Secondary CIDR Subnet 설정
+- 예제코드 경로 : Ch03_02-vpc-secondary-cidr > terraform-codes > subnet.tf
+2. Terraform에 Secondary CIDR Route Table 설정
+- 예제코드 경로 : Ch03_02-vpc-secondary-cidr > terraform-codes > route_table.tf
+3. Terraform에 Secondary CIDR Security Group 설정
+- 예제코드 경로 : Ch03_02-vpc-secondary-cidr > terraform-codes > security-group.tf
+
+2. AWS Management Console에서 확인 -Subnet:VPC>서브넷
+- Routing Table : VPC > 라우팅 테이블
+- Security Group : EC2 > 보안 그룹
+
+AWS ALB Controller를 활용한 Ingress ALB 생성
+AWS ALB Controller를 활용한 Service NLB 생성
+
+
+스토리지 구성
+AWS EBS CSI Driver를 활용한 Block Storage PV 생성
+AWS EBS CSI Driver를 활용한 File Storage PV 생성
+
+고가용성 구성
+Cluster Autoscaler를 활용한 EKS노드 오토스케일링
