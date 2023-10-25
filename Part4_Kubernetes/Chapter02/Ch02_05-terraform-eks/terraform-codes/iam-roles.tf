@@ -26,14 +26,14 @@ resource "aws_iam_role_policy_attachment" "terra-iam-policy-eks-cluster" {
 
 resource "aws_iam_role_policy_attachment" "terra-iam-policy-eks-cluster-vpc" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
-  role       = aws_iam_role.test-iam-role-eks-cluster.name
+  role       = aws_iam_role.terra-iam-role-eks-cluster.name
 }
 
 
 ############ eks nodegroup iam role ############
 
-resource "aws_iam_role" "test-iam-role-eks-nodegroup" {
-  name = "test-iam-role-eks-nodegroup"
+resource "aws_iam_role" "terra-iam-role-eks-nodegroup" {
+  name = "terra-iam-role-eks-nodegroup"
 
   assume_role_policy = <<POLICY
 {
@@ -53,7 +53,7 @@ POLICY
 
 resource "aws_iam_role_policy_attachment" "terra-iam-policy-eks-nodegroup" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.test-iam-role-eks-nodegroup.name
+  role       = aws_iam_role.terra-iam-role-eks-nodegroup.name
 }
 
 resource "aws_iam_role_policy_attachment" "terra-iam-policy-eks-nodegroup-cni" {
