@@ -26,6 +26,9 @@ https://releases.hashicorp.com/terraform/1.1.5/terraform_1.1.5_windows_amd64.zip
 2.압축해제
 3. terraform 파일을 실행가능 위치에 두고 실행
 
+KubeConfig 생성
+aws eks update-kubeconfig --region ap-northeast-2 --name terra-eks-cluster
+
 Terraform 기본 리소스 - Resource
 • 프로비저닝할 Resource의 오브젝트를 기술
 • 각 Resource는 오직 1개의 리소스 타입만 가짐
