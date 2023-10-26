@@ -9,4 +9,4 @@ spec:
   names:
     plural: eniconfigs
     singular: eniconfig
-    kind: ENIConfig
+    kind: ENIConfig 
