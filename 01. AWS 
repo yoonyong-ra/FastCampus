@@ -88,6 +88,24 @@ EKS Node 및 POD IP 대역 분리(Secondary CIDR)
 - Security Group : EC2 > 보안 그룹
 
 AWS ALB Controller를 활용한 Ingress ALB 생성
+
+ssh -i "~/.ssh/terra-kp-bastion.pem" ubuntu@ec2-3-34-43-12.ap-northeast-2.compute.amazonaws.com
+
+sudo apt install unzip
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws eks update-kubeconfig --region ap-northeast-2 --name terra-eks-cluster
+aws configure
+AWS Access Key ID [None]: AKIAXS5G6V6NGQWQ4P6B
+AWS Secret Access Key [None]: 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
+Default region name [None]: ap-northeast-2
+Default output format [None]: json
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.1/2023-09-14/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+
+
 AWS ALB Controller를 활용한 Service NLB 생성
 
 
