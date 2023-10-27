@@ -26,8 +26,17 @@ https://releases.hashicorp.com/terraform/1.1.5/terraform_1.1.5_windows_amd64.zip
 2.압축해제
 3. terraform 파일을 실행가능 위치에 두고 실행
 
+awscli 설치
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt install unzip
+unzip awscliv2.zip 
+sudo ./aws/install
+
 KubeConfig 생성
-aws eks update-kubeconfig --region ap-northeast-2 --name terra-eks-cluster
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.1/2023-09-14/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+aws eks update-kubeconfig --region ap-northeast-2 --name test-eks-cluster
 
 Terraform 기본 리소스 - Resource
 • 프로비저닝할 Resource의 오브젝트를 기술
@@ -89,6 +98,9 @@ EKS Node 및 POD IP 대역 분리(Secondary CIDR)
 
 AWS ALB Controller를 활용한 Ingress ALB 생성
 
+키페어 terra-kp-bastion 생성
+키페어 terra-kp-eks-wknode 생성
+
 ssh -i "~/.ssh/terra-kp-bastion.pem" ubuntu@ec2-3-34-43-12.ap-northeast-2.compute.amazonaws.com
 
 sudo apt install unzip
@@ -104,7 +116,12 @@ Default output format [None]: json
 curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.1/2023-09-14/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+git clone https://github.com/yoonyong-ra/FastCampus.git
 
+ALB 설치
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
 
 AWS ALB Controller를 활용한 Service NLB 생성
 

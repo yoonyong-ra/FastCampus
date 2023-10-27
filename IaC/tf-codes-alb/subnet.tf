@@ -1,7 +1,9 @@
-resource "aws_subnet" "terra-public-subnet1" {
+############ Public Subnets ############
+
+resource "aws_subnet" "test-public-subnet1" {
 
   depends_on = [
-    aws_vpc.terra-vpc
+    aws_vpc.test-vpc
   ]
 
   assign_ipv6_address_on_creation                = "false"
@@ -14,25 +16,25 @@ resource "aws_subnet" "terra-public-subnet1" {
   private_dns_hostname_type_on_launch            = "ip-name"
 
   tags = {
-    Name                                     = "terra-public-subnet1"
-    "kubernetes.io/cluster/terra-eks-cluster" = "shared"
+    Name                                     = "test-public-subnet1"
+    "kubernetes.io/cluster/test-eks-cluster" = "shared"
     "kubernetes.io/role/elb"                 = 1
   }
 
   tags_all = {
-    Name                                     = "terra-public-subnet1"
-    "kubernetes.io/cluster/terra-eks-cluster" = "shared"
+    Name                                     = "test-public-subnet1"
+    "kubernetes.io/cluster/test-eks-cluster" = "shared"
     "kubernetes.io/role/elb"                 = 1
   }
 
-  vpc_id = aws_vpc.terra-vpc.id
+  vpc_id = aws_vpc.test-vpc.id
   availability_zone = "ap-northeast-2a"
 }
 
-resource "aws_subnet" "terra-public-subnet3" {
+resource "aws_subnet" "test-public-subnet3" {
 
   depends_on = [
-    aws_vpc.terra-vpc
+    aws_vpc.test-vpc
   ]
 
   assign_ipv6_address_on_creation                = "false"
@@ -45,82 +47,77 @@ resource "aws_subnet" "terra-public-subnet3" {
   private_dns_hostname_type_on_launch            = "ip-name"
 
   tags = {
-    Name                                     = "terra-public-subnet3"
-    "kubernetes.io/cluster/terra-eks-cluster" = "shared"
+    Name                                     = "test-public-subnet3"
+    "kubernetes.io/cluster/test-eks-cluster" = "shared"
     "kubernetes.io/role/elb"                 = 1
   }
 
   tags_all = {
-    Name                                     = "terra-public-subnet3"
-    "kubernetes.io/cluster/terra-eks-cluster" = "shared"
+    Name                                     = "test-public-subnet3"
+    "kubernetes.io/cluster/test-eks-cluster" = "shared"
     "kubernetes.io/role/elb"                 = 1
   }
 
-  vpc_id = aws_vpc.terra-vpc.id
+  vpc_id = aws_vpc.test-vpc.id
   availability_zone = "ap-northeast-2c"
 }
 
-##################################
+############ Private Subnets ############
 
-resource "aws_subnet" "terra-public-subnet-eks-pods-a" {
+resource "aws_subnet" "test-private-subnet1" {
 
   depends_on = [
-    aws_vpc.terra-vpc
+    aws_vpc.test-vpc
   ]
 
   assign_ipv6_address_on_creation                = "false"
-  cidr_block                                     = "100.64.0.0/19"
+  cidr_block                                     = "172.31.32.0/20"
   enable_dns64                                   = "false"
   enable_resource_name_dns_a_record_on_launch    = "false"
   enable_resource_name_dns_aaaa_record_on_launch = "false"
   ipv6_native                                    = "false"
-  map_public_ip_on_launch                        = "true"
+  map_public_ip_on_launch                        = "false"
   private_dns_hostname_type_on_launch            = "ip-name"
 
   tags = {
-    Name                                     = "terra-public-subnet-eks-pods-a"
-    "kubernetes.io/cluster/terra-eks-cluster" = "shared"
-    "kubernetes.io/role/elb"                 = 1
+    Name                                     = "test-private-subnet1"
+    "kubernetes.io/cluster/test-eks-cluster" = "shared"
   }
 
   tags_all = {
-    Name                                     = "terra-public-subnet-eks-pods-a"
-    "kubernetes.io/cluster/terra-eks-cluster" = "shared"
-    "kubernetes.io/role/elb"                 = 1
+    Name                                     = "test-private-subnet1"
+    "kubernetes.io/cluster/test-eks-cluster" = "shared"
   }
 
-  vpc_id = aws_vpc.terra-vpc.id
+  vpc_id = aws_vpc.test-vpc.id
   availability_zone = "ap-northeast-2a"
 }
 
-resource "aws_subnet" "terra-public-subnet-eks-pods-c" {
+resource "aws_subnet" "test-private-subnet3" {
 
   depends_on = [
-    aws_vpc.terra-vpc
+    aws_vpc.test-vpc
   ]
 
   assign_ipv6_address_on_creation                = "false"
-  cidr_block                                     = "100.64.32.0/19"
+  cidr_block                                     = "172.31.48.0/20"
   enable_dns64                                   = "false"
   enable_resource_name_dns_a_record_on_launch    = "false"
   enable_resource_name_dns_aaaa_record_on_launch = "false"
   ipv6_native                                    = "false"
-  map_public_ip_on_launch                        = "true"
+  map_public_ip_on_launch                        = "false"
   private_dns_hostname_type_on_launch            = "ip-name"
 
   tags = {
-    Name                                     = "terra-public-subnet-eks-pods-c"
-    "kubernetes.io/cluster/terra-eks-cluster" = "shared"
-    "kubernetes.io/role/elb"                 = 1
+    Name                                     = "test-private-subnet3"
+    "kubernetes.io/cluster/test-eks-cluster" = "shared"
   }
 
   tags_all = {
-    Name                                     = "terra-public-subnet-eks-pods-c"
-    "kubernetes.io/cluster/terra-eks-cluster" = "shared"
-    "kubernetes.io/role/elb"                 = 1
+    Name                                     = "test-private-subnet3"
+    "kubernetes.io/cluster/test-eks-cluster" = "shared"
   }
 
-  vpc_id = aws_vpc.terra-vpc.id
+  vpc_id = aws_vpc.test-vpc.id
   availability_zone = "ap-northeast-2c"
 }
-

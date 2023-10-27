@@ -1,13 +1,13 @@
-resource "aws_eip" "terra-elastic-ip" {
+resource "aws_eip" "test-elastic-ip" {
   network_border_group = "ap-northeast-2"
   public_ipv4_pool     = "amazon"
 
   tags = {
-    Name        = "terra-elastic-ip"
+    Name        = "test-elastic-ip"
   }
 
   tags_all = {
-    Name        = "terra-elastic-ip"
+    Name        = "test-elastic-ip"
   }
 
 #  vpc = true

@@ -1,5 +1,5 @@
-resource "aws_iam_instance_profile" "terra-ec2-instance-profile" {
-  name = "terra-ec2-instance-profile"
+resource "aws_iam_instance_profile" "test-ec2-instance-profile" {
+  name = "test-ec2-instance-profile"
   path = "/"
-  role = "terra-iam-role-ec2-instance-bastion"
+  role = "test-iam-role-ec2-instance-bastion"
 }
